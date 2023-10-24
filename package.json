@@ -1,0 +1,45 @@
+{
+  "name": "yykaakoo",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/index.ts",
+    "dev": "bun deploy-commands && bun --watch src/index.ts",
+    "watch": "ts-node-esm src/index.ts",
+    "deploy-commands": "bun src/util/deploy-commands.ts",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@discordjs/core": "1.0.1",
+    "@types/passport-bnet": "^2.0.4",
+    "@types/passport-oauth2": "^1.4.14",
+    "bun-types": "latest",
+    "discord.js": "14.13.0",
+    "dotenv": "16.3.1",
+    "eslint-config-prettier": "9.0.0",
+    "firebase": "10.5.0",
+    "firebase-admin": "11.11.0",
+    "jsonpath-plus": "^7.2.0",
+    "mongoose": "^7.6.3",
+    "passport": "^0.6.0",
+    "passport-bnet": "^2.0.0",
+    "passport-oauth2": "^1.7.0",
+    "prettier": "3.0.3",
+    "ts-node": "10.9.1",
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.2.2",
+    "zod": "3.22.4"
+  },
+  "devDependencies": {
+    "patch-package": "8.0.0"
+  },
+  "ts-node": {
+    "esm": true,
+    "compilerOptions": {
+      "module": "nodenext"
+    }
+  }
+}
