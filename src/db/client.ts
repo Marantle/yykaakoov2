@@ -6,7 +6,7 @@ const db = await mongoose.connect(ENV.mongoUri, {
   ssl: true,
   user: ENV.mongoUser,
   pass: ENV.mongoPass,
-  dbName: 'yykaakoobot',
+  dbName: ENV.mongoDbName,
 })
 console.log('Connected to MongoDB')
 export default db

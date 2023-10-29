@@ -11,6 +11,7 @@ export const ENV = z
     MONGO_PASS: z.string(),
     BNET_CLIENTID: z.string(),
     BNET_SECRET: z.string(),
+    MONGO_DB_NAME: z.string(),
   })
   .transform((e) => ({
     clientId: e.CLIENT_ID,
@@ -21,4 +22,5 @@ export const ENV = z
     mongoPass: e.MONGO_PASS,
     bnetClientId: e.BNET_CLIENTID,
     bnetSecret: e.BNET_SECRET,
+    mongoDbName: e.MONGO_DB_NAME,
   })).parse(process.env);
