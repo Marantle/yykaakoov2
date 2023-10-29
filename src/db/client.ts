@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { Character } from './schemas/character.ts'
 import { ENV } from 'util/env.ts'
 
 const db = await mongoose.connect(ENV.mongoUri, {
