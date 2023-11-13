@@ -16,7 +16,7 @@ export const getCurrentScores = async (
   character: string,
   region: string = 'eu'
 ) => {
-  logger.info('getting m+ progress', realm, character)
+  logger.info('getting rating', realm, character)
   const scores: CurrentRatings = await (
     await fetch(
       await scoreUrl(realm.toLowerCase(), character.toLowerCase(), region),
