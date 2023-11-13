@@ -25,7 +25,8 @@ const followedrating: Command = {
       character.followed.map(async (followed) => {
         const currentRating = await getCurrentRatings(
           followed.realm,
-          followed.characterName
+          followed.characterName,
+          followed.region
         )
         if (currentRating.statusCode === 400) {
           return Promise.reject(currentRating)
