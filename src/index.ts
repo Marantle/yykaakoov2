@@ -3,6 +3,7 @@ import commands from './commands/allcommands.ts'
 import db from './db/client.ts'
 import dotenv from 'dotenv'
 import { ENV } from 'util/env.ts'
+import logger from 'util/logger.ts'
 dotenv.config()
 
 const { token } = ENV
@@ -13,7 +14,7 @@ db.connection.on('error', console.error.bind(console, 'connection error:'))
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return
-  console.log(
+  logger.info(
     `user ${interaction.user.displayName}(${interaction.user.globalName}) invoked ${interaction.commandName}`
   )
   const command = commands.get(interaction.commandName)
@@ -42,7 +43,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 })
 
 client.once(Events.ClientReady, (c) => {
-  console.log(`Ready! Logged in as ${c.user.tag}`)
+  logger.info(`Ready! Logged in as ${c.user.tag}`)
 })
 
 client.login(token)

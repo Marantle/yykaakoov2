@@ -3,6 +3,7 @@ import { Command } from '../commandTypes.ts'
 import { characterOption, realmOption } from '../options.ts'
 import { saveMain } from 'db/operations/characteroperations.ts'
 import { realms } from 'commands/mythic/realmnames.ts'
+import logger from 'util/logger.ts'
 
 const setMain: Command = {
   data: new SlashCommandBuilder()
@@ -13,14 +14,30 @@ const setMain: Command = {
   async execute(interaction) {
     const character = interaction.options.getString('character')!
     const realm = interaction.options.getString('realm')!
+    logger.info(interaction.user.id, interaction.commandName, character, realm)
+    if (!realms[realm.toLowerCase()]) {
+      return await interaction.reply({
+        content: `Realm ${realm} not found`,
+      })
+    }
 
-    const upserted = await saveMain(interaction.user.id, character, realm)
-    
-    console.log(interaction.user.id, character, realm)
-    return await interaction.reply({ content: `<@${upserted?.discordUserId}>'s new main is ${c(upserted?.characterName)}-${realms[upserted!.realm]}`, ephemeral: true })
+    const formattedRealm = realms[realm.toLowerCase()]
+    logger.info({ formattedRealm })
+    const upserted = await saveMain(
+      interaction.user.id,
+      character,
+      formattedRealm
+    )
+
+    return await interaction.reply({
+      content: `<@${upserted?.discordUserId}>'s new main is ${c(
+        upserted?.characterName
+      )}-${upserted!.realm}`,
+      ephemeral: true,
+    })
   },
 }
 
-const c = (s?: string) => s ? s.charAt(0).toUpperCase() + s.slice(1) : "error"
+const c = (s?: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : 'error')
 
 export default setMain

@@ -1,4 +1,5 @@
 import { ENV } from 'util/env'
+import logger from 'util/logger'
 const BNET_ID = ENV.bnetClientId
 const BNET_SECRET = ENV.bnetSecret
 
@@ -10,7 +11,7 @@ async function getAccessToken() {
     const url = 'https://oauth.battle.net/token'
 
     try {
-      console.log('getting battlenet token')
+      logger.info('getting battlenet token')
       const response = await fetch(url, {
         method: 'POST',
         headers: {

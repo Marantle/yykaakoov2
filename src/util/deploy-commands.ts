@@ -3,6 +3,7 @@ import { REST } from '@discordjs/rest'
 import { ApplicationCommandsAPI } from '@discordjs/core'
 import { ENV } from './env'
 import db from '../db/client'
+import logger from './logger'
 const { clientId, guildId, token } = ENV
 
 const commands = allCommands.map((command) => command.data.toJSON())
@@ -11,17 +12,15 @@ const rest = new REST().setToken(token)
 const api = new ApplicationCommandsAPI(rest)
 
 ;(async () => {
+  logger.info('Deploying' + JSON.stringify(commands.map((c) => c.name)))
   try {
-    console.log(
+    logger.info(
       `Started refreshing ${commands.length} application (/) commands.`
     )
 
-    const data = await api.bulkOverwriteGlobalCommands(
-      clientId,
-      commands
-    )
+    const data = await api.bulkOverwriteGlobalCommands(clientId, commands)
 
-    console.log(
+    logger.info(
       `Successfully reloaded ${JSON.stringify(
         data.map((command) => command.name)
       )} application (/) commands.`

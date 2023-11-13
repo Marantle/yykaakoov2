@@ -5,46 +5,60 @@ import { realms } from './realmnames'
 import { CharacterMedia } from 'types/battlenet/CharacterMedia'
 import { characterOption, realmOption } from '../options.ts'
 import { getCharacterMedia, getMythicPlusProgress } from 'apis/battlenet.ts'
-
+import { getMain } from 'db/operations/characteroperations.ts'
 
 const weekly: Command = {
   data: new SlashCommandBuilder()
     .setName('vault')
-    .setDescription('Get your vault mythic+ runs')
-    .addStringOption(characterOption())
-    .addStringOption(realmOption()),
+    .setDescription('Get your mains vault mythic+ runs, or give realm and character to get anyones')
+    .addStringOption(characterOption(false))
+    .addStringOption(realmOption(false)),
   execute: async (interaction) => {
-    const realm = interaction.options.getString('realm')!
-    const character = interaction.options.getString('character')!
-    if (!realms[realm]) {
+    let realm = interaction.options.getString('realm')
+    let character = interaction.options.getString('character')
+    if (realm && !realms[realm.toLocaleLowerCase()]) {
       return await interaction.reply({
-        content: `Realm ${realm} not found`,
+        content: `Given realm ${realm} not found`,
       })
     }
 
+    if (!realm && !character) {
+      const user = await getMain(interaction.user.id)
+      realm = user?.realm ?? null
+      character = user?.characterName ?? null
+    }
+
+    if (!realm || !character) {
+      return await interaction.reply({
+        content: `Supply both, character and its realm, or use /setmain to set your main`,
+      })
+    }
+
+    
     const mytchicPlusProgress = await getMythicPlusProgress(realm, character)
 
     const media: CharacterMedia = await getCharacterMedia(realm, character)
 
-    console.log(mytchicPlusProgress)
     if (mytchicPlusProgress.code === 404) {
       return await interaction.reply({
         content: `Character ${character} on realm ${realm} not found`,
       })
     }
+
     if (!mytchicPlusProgress.current_period.best_runs) {
       return await interaction.reply({
         content: `No runs found for ${character} on realm ${realm}`,
       })
     }
-    const exampleEmbed = buildVaultEmbed(
+
+    const vaultEmbed = buildVaultEmbed(
       mytchicPlusProgress,
       character,
       media.assets[2].value
     )
 
     return await interaction.reply({
-      embeds: [exampleEmbed],
+      embeds: [vaultEmbed],
     })
   },
 }

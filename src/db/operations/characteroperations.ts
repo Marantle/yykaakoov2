@@ -8,7 +8,7 @@ export const saveMain = async (
 ) => {
   return await Character.findOneAndUpdate(
     { discordUserId: userId },
-    { $set: { characterName: character, realm: realm } },
+    { $set: { characterName: character, realm } },
     { new: true, upsert: true }
   )
 }
