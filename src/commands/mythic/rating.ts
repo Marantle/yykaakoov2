@@ -1,7 +1,7 @@
 import { Command } from 'commands/commandTypes.ts'
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js'
 import { realms } from './realmnames'
-import { characterOption, realmOption } from '../options'
+import { characterOption, realmOption, regionOptions } from '../options'
 import { getMain } from 'db/operations/characteroperations.ts'
 import { getCurrentScores as getCurrentRatings } from 'apis/rio'
 import { CurrentScores } from 'types/rio/CurrentScores'
@@ -13,10 +13,12 @@ const weekly: Command = {
       'Get your mains rio, or give realm and character to get anyones'
     )
     .addStringOption(characterOption(false))
-    .addStringOption(realmOption(false)),
+    .addStringOption(realmOption(false))
+    .addStringOption(regionOptions(false)),
   execute: async (interaction) => {
     let realm = interaction.options.getString('realm')
     let character = interaction.options.getString('character')
+    const region = interaction.options.getString('region') ?? 'eu'
     if (realm && !realms[realm.toLocaleLowerCase()]) {
       return await interaction.reply({
         content: `Given realm ${realm} not found`,
@@ -37,7 +39,7 @@ const weekly: Command = {
       })
     }
 
-    const currentRatings = await getCurrentRatings(realm, character)
+    const currentRatings = await getCurrentRatings(realm, character, region)
 
     if (
       currentRatings.hasOwnProperty('statusCode') &&
