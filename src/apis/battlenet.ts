@@ -11,7 +11,7 @@ export const getMythicPlusProgress = async (
   character: string,
   region = 'eu'
 ) => {
-  logger.info('getting m+ progress', [realm, character])
+  logger.info({msg: 'getting m+ progress', realm, character})
   const mytchicPlusProgress: MythicPlusProgress = await (
     await fetch(await mythicUrl(realm.toLowerCase(), character.toLowerCase(), region), options)
   ).json()
