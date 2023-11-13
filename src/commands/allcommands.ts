@@ -11,6 +11,7 @@ import titlecutoff from './mythic/titlecutoff.ts'
 import rating from './mythic/rating.ts'
 import follow from './character/follow.ts'
 import followedrating from './followed/followedrating.ts'
+import followed from './followed/followed.ts'
 const collection = new Collection<string, Command>()
 
 for (const command of [
@@ -24,6 +25,7 @@ for (const command of [
   titlecutoff,
   rating,
   follow,
+  followed,
   followedrating,
 ]) {
   collection.set(command.data.name, command)
