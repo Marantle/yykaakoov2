@@ -6,6 +6,7 @@ import logger from 'util/logger.ts'
 import { realms } from 'commands/mythic/realmnames.ts'
 import { buildEmbedFromStringArray, c } from 'util/utils.ts'
 import mongoose, { MongooseError } from 'mongoose'
+import { getMythicPlusProgress } from 'apis/battlenet.ts'
 
 const follow: Command = {
   data: new SlashCommandBuilder()
@@ -21,6 +22,14 @@ const follow: Command = {
     const realm = interaction.options.getString('realm')!
     const region = interaction.options.getString('region') ?? 'eu'
 
+    const mythicdata = await getMythicPlusProgress(realm, character, region);
+
+    if (mythicdata.code === 404) {
+      return await interaction.reply({
+        content: `Character ${character} on realm ${realm} not found for region ${region}`,
+        ephemeral: true,
+      })
+    }
     try {
       const upserted = await addToFollowedList(
         interaction.user.id,
