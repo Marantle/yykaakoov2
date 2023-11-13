@@ -10,7 +10,7 @@ const weekly: Command = {
   data: new SlashCommandBuilder()
     .setName('rating')
     .setDescription(
-      'Get your mains rio, or give realm and character to get anyones'
+      'Get your followed characters rio'
     )
     .addStringOption(characterOption(false))
     .addStringOption(realmOption(false))
