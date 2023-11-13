@@ -12,7 +12,7 @@ const rest = new REST().setToken(token)
 const api = new ApplicationCommandsAPI(rest)
 
 ;(async () => {
-  logger.info('Deploying' + JSON.stringify(commands.map((c) => c.name)))
+  logger.info('Deploying' + JSON.stringify(commands.map((c) => `/${c.name}: ${c.description}`)))
   try {
     logger.info(
       `Started refreshing ${commands.length} application (/) commands.`

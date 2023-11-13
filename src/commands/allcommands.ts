@@ -9,6 +9,8 @@ import setMain from './character/setmain.ts'
 import myVault from './mythic/myvault.ts'
 import titlecutoff from './mythic/titlecutoff.ts'
 import rating from './mythic/rating.ts'
+import follow from './character/follow.ts'
+import followedrating from './followed/followedrating.ts'
 const collection = new Collection<string, Command>()
 
 for (const command of [
@@ -20,7 +22,9 @@ for (const command of [
   setMain,
   myVault,
   titlecutoff,
-  rating
+  rating,
+  follow,
+  followedrating,
 ]) {
   collection.set(command.data.name, command)
 }

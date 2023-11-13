@@ -10,7 +10,7 @@ import logger from 'util/logger'
 const weekly: Command = {
   data: new SlashCommandBuilder()
     .setName('myvault')
-    .setDescription('Get your mains vault mythic+ runs'),
+    .setDescription('Get your mains vault mythic+ runs, same as running /vault with no parameters'),
   execute: async (interaction) => {
     const user = await getMain(interaction.user.id)
     const realm = user?.realm.toLowerCase()!
@@ -19,6 +19,7 @@ const weekly: Command = {
     if (!realms[realm] || !character) {
       return await interaction.reply({
         content: `No main found for <@${interaction.user.id}>. Use /setmain to set your main`,
+        ephemeral: false,
       })
     }
 
@@ -29,12 +30,14 @@ const weekly: Command = {
     if (mytchicPlusProgress.code === 404) {
       return await interaction.reply({
         content: `Character ${character} on realm ${realm} not found`,
+        ephemeral: true,
       })
     }
 
     if (!mytchicPlusProgress.current_period.best_runs) {
       return await interaction.reply({
         content: `No runs found for ${character} on realm ${realm}`,
+        ephemeral: true,
       })
     }
 
@@ -46,6 +49,7 @@ const weekly: Command = {
 
     return await interaction.reply({
       embeds: [embed],
+      ephemeral: true,
     })
   },
 }

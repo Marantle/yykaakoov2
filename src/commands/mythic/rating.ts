@@ -1,9 +1,7 @@
 import { Command } from 'commands/commandTypes.ts'
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js'
 import { realms } from './realmnames'
-import { CharacterMedia } from 'types/battlenet/CharacterMedia'
 import { characterOption, realmOption } from '../options'
-import { getCharacterMedia } from 'apis/battlenet.ts'
 import { getMain } from 'db/operations/characteroperations.ts'
 import { getCurrentScores as getCurrentRatings } from 'apis/rio'
 import { CurrentScores } from 'types/rio/CurrentScores'
@@ -22,6 +20,7 @@ const weekly: Command = {
     if (realm && !realms[realm.toLocaleLowerCase()]) {
       return await interaction.reply({
         content: `Given realm ${realm} not found`,
+        ephemeral: true,
       })
     }
 
@@ -34,6 +33,7 @@ const weekly: Command = {
     if (!realm || !character) {
       return await interaction.reply({
         content: `Supply both, character and its realm, or use /setmain to set your main`,
+        ephemeral: true,
       })
     }
 
@@ -45,6 +45,7 @@ const weekly: Command = {
     ) {
       return await interaction.reply({
         content: `${currentRatings.message}, character ${character} on realm ${realm} not found`,
+        ephemeral: true,
       })
     }
     const rioEmbed = buildRioEmbed(
@@ -87,7 +88,7 @@ Spec 4: ${topKeys.spec_3 > 0 ? topKeys.spec_3 : 'N/A'}
     .setThumbnail(thumbnail)
     .addFields({ name: ' ', value: msg })
     .addFields({ name: ' ', value: `[Raider.io profile](${mytchicPlusProgress.profile_url})` })
-    
+
   return embed
 }
 

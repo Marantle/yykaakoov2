@@ -4,6 +4,7 @@ import { characterOption, realmOption } from '../options.ts'
 import { saveMain } from 'db/operations/characteroperations.ts'
 import { realms } from 'commands/mythic/realmnames.ts'
 import logger from 'util/logger.ts'
+import { c } from 'util/utils.ts'
 
 const setMain: Command = {
   data: new SlashCommandBuilder()
@@ -37,7 +38,5 @@ const setMain: Command = {
     })
   },
 }
-
-const c = (s?: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : 'error')
 
 export default setMain

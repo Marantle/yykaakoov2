@@ -4,7 +4,7 @@ import { SlashCommandBuilder } from 'discord.js'
 const titlecutoff: Command = {
   data: new SlashCommandBuilder()
     .setName('titlecutoff')
-    .setDescription('Returns the currently calculated title cutoff'),
+    .setDescription('Returns the currently calculated title cutoff with extreme accuracy'),
   async execute(interaction) {
     const timetil = Math.floor(
       (new Date('2023-11-07T00:00:00.000Z').getTime() - new Date().getTime()) /
