@@ -85,7 +85,7 @@ function buildVaultEmbed(
     .reverse()
     .slice(0, 8)
     .map((key) => `${key.dungeon?.padEnd(25, ' ')} ${key.level}`)
-  const msg = '```' + topKeys.join('\n') + '```'
+  const msg = '```' + topKeys.map(tk => tk.replace('Dawn of the Infinite: ', '')).join('\n') + '```'
   const embed = new EmbedBuilder()
     .setColor(0x0099ff)
     .setTitle(
