@@ -5,7 +5,7 @@ import { addToFollowedList } from 'db/operations/characteroperations.ts'
 import logger from 'util/logger.ts'
 import { realms } from 'commands/mythic/realmnames.ts'
 import { buildEmbedFromStringArray, c } from 'util/utils.ts'
-import mongoose, { MongooseError } from 'mongoose'
+import mongoose from 'mongoose'
 import { getMythicPlusProgress } from 'apis/battlenet.ts'
 
 const follow: Command = {
@@ -30,6 +30,7 @@ const follow: Command = {
         ephemeral: true,
       })
     }
+
     try {
       const upserted = await addToFollowedList(
         interaction.user.id,

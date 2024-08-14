@@ -62,13 +62,13 @@ function buildVaultEmbed(
   const topKeys = mytchicPlusProgress.current_period.best_runs
     .map((run) => ({
       level: run.keystone_level,
-      dungeon: run.dungeon.name,
+      dungeon: run.dungeon.name?.replace('Dawn of the Infinite: ', ''),
     }))
     .sort((a, b) => a.level - b.level)
     .reverse()
     .slice(0, 8)
     .map((key) => `${key.dungeon?.padEnd(25, ' ')} ${key.level}`)
-  const msg = '```' + topKeys.map(tk => tk.replace('Dawn of the Infinite: ', '')).join('\n') + '```'
+  const msg = '```' + topKeys.join('\n') + '```'
   const embed = new EmbedBuilder()
     .setColor(0x0099ff)
     .setTitle(

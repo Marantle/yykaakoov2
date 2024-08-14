@@ -12,6 +12,7 @@ import rating from './mythic/rating.ts'
 import follow from './character/follow.ts'
 import followedrating from './followed/followedrating.ts'
 import followed from './followed/followed.ts'
+import itemlevel from './character/itemlevel.ts'
 const collection = new Collection<string, Command>()
 
 for (const command of [
@@ -27,6 +28,7 @@ for (const command of [
   follow,
   followed,
   followedrating,
+  itemlevel,
 ]) {
   collection.set(command.data.name, command)
 }
