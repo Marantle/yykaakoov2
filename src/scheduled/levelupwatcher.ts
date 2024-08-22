@@ -95,6 +95,7 @@ export default (client: Client<boolean>) => {
                   ' https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm8zcGhiNnJxNmpzd3E3NG95cWN3cGp4NGRta2VpdzNhbmQweTQ3ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NaxKt9aSzAspO/giphy.webp'
               }
             }
+            logger.info(`levelupChannel: ${levelupChannel}`)
             client.channels
               .fetch(levelupChannel)
               .then((channel) => {
