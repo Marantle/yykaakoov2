@@ -29,14 +29,10 @@ export interface Realm {
     key:   Self;
     name?: string;
     id:    number;
-    slug:  Slug;
+    slug:  string;
 }
 
-export enum Slug {
-    Auchindoun = "auchindoun",
-    Dunemaul = "dunemaul",
-    Sylvanas = "sylvanas",
-}
+
 
 export interface Member {
     character: Character;

@@ -12,6 +12,7 @@ export const ENV = z
     BNET_CLIENTID: z.string(),
     BNET_SECRET: z.string(),
     MONGO_DB_NAME: z.string(),
+    LEVELUP_CHANNEL: z.string(),
   })
   .transform((e) => ({
     clientId: e.CLIENT_ID,
@@ -23,4 +24,5 @@ export const ENV = z
     bnetClientId: e.BNET_CLIENTID,
     bnetSecret: e.BNET_SECRET,
     mongoDbName: e.MONGO_DB_NAME,
+    levelupChannel: e.LEVELUP_CHANNEL,
   })).parse(process.env);

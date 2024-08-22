@@ -4,13 +4,19 @@ import db from './db/client.ts'
 import dotenv from 'dotenv'
 import { ENV } from 'util/env.ts'
 import logger from 'util/logger.ts'
+import levelupWatcher from 'scheduled/levelupwatcher.ts'
+import startLevelupUpdater from 'scheduled/levelupupdater.ts'
+import { getAccessToken } from 'apis/auth.ts'
 dotenv.config()
 
 const { token } = ENV
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
-db.connection.on('error', console.error.bind(console, 'connection error:'))
+db.on('error', console.error.bind(console, 'connection error:'))
+
+levelupWatcher(client)
+startLevelupUpdater()
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return
