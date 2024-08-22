@@ -11,7 +11,13 @@ dotenv.config()
 
 const { token } = ENV
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageTyping,
+  ],
+})
 
 db.on('error', console.error.bind(console, 'connection error:'))
 

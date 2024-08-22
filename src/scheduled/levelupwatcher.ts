@@ -83,17 +83,22 @@ export default (client: Client<boolean>) => {
           if (character) {
             let message = `Ding! ${
               character.characterNameRealm.split('-')[0]
-            } saavutti tason ${change.updateDescription?.updatedFields.level ?? '?'}, hän oli ${levelCount?.count ?? '?'
-            }. tason ${levelCount?.level ?? '?'} seikkailija!`
-            if (change.updateDescription?.updatedFields.level === 80) { 
-                message += ' Onneksi olkoon! Olet saavuttanut maksimitason! 🎉'
-                if (levelCount?.count === 1) {
-                    message += ' https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm8zcGhiNnJxNmpzd3E3NG95cWN3cGp4NGRta2VpdzNhbmQweTQ3ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NaxKt9aSzAspO/giphy.webp'
-                }
+            } saavutti tason ${
+              change.updateDescription?.updatedFields.level ?? '?'
+            }, hän oli ${levelCount?.count ?? '?'}. tason ${
+              levelCount?.level ?? '?'
+            } seikkailija!`
+            if (change.updateDescription?.updatedFields.level === 80) {
+              message += ' Onneksi olkoon! Olet saavuttanut maksimitason! 🎉'
+              if (levelCount?.count === 1) {
+                message +=
+                  ' https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm8zcGhiNnJxNmpzd3E3NG95cWN3cGp4NGRta2VpdzNhbmQweTQ3ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NaxKt9aSzAspO/giphy.webp'
+              }
             }
             client.channels.fetch(levelupChannel).then((channel) => {
               const textChannel = channel as TextChannel
               textChannel.send(message)
+              logger.info(`message sent message: ${message}`)
             })
           }
         })
