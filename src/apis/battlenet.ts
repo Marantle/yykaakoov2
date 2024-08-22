@@ -48,7 +48,7 @@ export const getCharacterMedia = async (
 }
 
 const guildUrl = async (realm: string, guild: string, region: string) =>
-  `https://eu.api.blizzard.com/data/wow/guild/${guild}/${realm}/roster?namespace=profile-${region}&locale=en_US&access_token=${await getAccessToken()}`
+  `https://eu.api.blizzard.com/data/wow/guild/${realm}/${guild}/roster?namespace=profile-${region}&locale=en_US&access_token=${await getAccessToken()}`
 
 export const getGuildRoster = async (
   realm: string,
@@ -56,9 +56,9 @@ export const getGuildRoster = async (
   region = 'eu'
 ) => {
   logger.info(
-    'getting guild roster ' +
+    'getting guild roster, realm: ' +
       realm +
-      ' ' +
+      ' guild: ' +
       guild +
       ' ' +
       (await guildUrl(realm.toLowerCase(), guild.toLowerCase(), region))

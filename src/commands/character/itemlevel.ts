@@ -10,9 +10,8 @@ const itemlevel: Command = {
     .setDescription('Get all item levels in guild'),
 
   async execute(interaction) {
-    const guild =
-      interaction.options.getString('character') ?? 'beyond-harmless'
-    const realm = interaction.options.getString('realm') ?? 'sylvanas'
+    const guild ='beyond-harmless'
+    const realm = 'sylvanas'
     logger.info(interaction.user.id, interaction.commandName, guild, realm)
     if (!realms[realm.toLowerCase()]) {
       return await interaction.reply({

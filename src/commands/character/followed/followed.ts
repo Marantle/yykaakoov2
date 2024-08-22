@@ -1,6 +1,6 @@
 import { Command } from 'commands/commandTypes.ts'
 import { SlashCommandBuilder } from 'discord.js'
-import { characterOption, realmOption, regionOptions } from '../options.ts'
+import { characterOption, realmOption, regionOptions } from '../../options.ts'
 import { addToFollowedList, getMain } from 'db/operations/characteroperations.ts'
 import logger from 'util/logger.ts'
 import { realms } from 'commands/mythic/realmnames.ts'
