@@ -95,11 +95,21 @@ export default (client: Client<boolean>) => {
                   ' https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm8zcGhiNnJxNmpzd3E3NG95cWN3cGp4NGRta2VpdzNhbmQweTQ3ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NaxKt9aSzAspO/giphy.webp'
               }
             }
-            client.channels.fetch(levelupChannel).then((channel) => {
-              const textChannel = channel as TextChannel
-              textChannel.send(message)
-              logger.info(`message sent message: ${message}`)
-            })
+            client.channels
+              .fetch(levelupChannel)
+              .then((channel) => {
+                const textChannel = channel as TextChannel
+                textChannel
+                  .send(message)
+                  .then(() => logger.info(`message sent: ${message}`))
+                  .catch((error) =>
+                    logger.error(`Failed to send message: ${error}`)
+                  )
+                logger.info(`message sent message: ${message}`)
+              })
+              .catch((error) => {
+                logger.error(`Failed to fetch the channel: ${error}`)
+              })
           }
         })
       })
