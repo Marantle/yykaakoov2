@@ -96,21 +96,23 @@ export default (client: Client<boolean>) => {
               }
             }
             logger.info(`levelupChannel: ${levelupChannel}`)
-            client.channels
-              .fetch(levelupChannel)
-              .then((channel) => {
-                const textChannel = channel as TextChannel
-                textChannel
-                  .send(message)
-                  .then(() => logger.info(`message sent: ${message}`))
-                  .catch((error) =>
-                    logger.error(`Failed to send message: ${error}`)
-                  )
-                logger.info(`message sent message: ${message}`)
-              })
-              .catch((error) => {
-                logger.error(`Failed to fetch the channel: ${error}`)
-              })
+            if (change.updateDescription?.updatedFields.level === 80) {
+              client.channels
+                .fetch(levelupChannel)
+                .then((channel) => {
+                  const textChannel = channel as TextChannel
+                  textChannel
+                    .send(message)
+                    .then(() => logger.info(`message sent: ${message}`))
+                    .catch((error) =>
+                      logger.error(`Failed to send message: ${error}`)
+                    )
+                  logger.info(`message sent message: ${message}`)
+                })
+                .catch((error) => {
+                  logger.error(`Failed to fetch the channel: ${error}`)
+                })
+            }
           }
         })
       })
